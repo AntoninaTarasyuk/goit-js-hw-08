@@ -13,8 +13,14 @@ const timeFunction = function(data) {
 
 player.on('timeupdate', throttle(timeFunction, 1000));
 
-player.setCurrentTime(localStorage.getItem(STORAGE_KEY))
-  .then(function (seconds) { })
-  .catch(function (error) {
-    switch (error.name) { case 'Error': break; default: break; }
-  });
+function onPageReload() {
+  const savedMessage = localStorage.getItem(STORAGE_KEY);
+  if (savedMessage) {
+    player.setCurrentTime(savedMessage)
+      .then(function (seconds) { })
+      .catch(function (error) {
+        switch (error.name) { case 'Error': break; default: break; }
+      });
+  }
+}
+onPageReload();
