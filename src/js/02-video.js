@@ -7,6 +7,7 @@ const player = new Player(iframe);
 const TIME_KEY = 'videoplayer-current-time';
 
 function updatePlaybackTime(data) {
+// If video ended - remove item from localStorage
   if (data.seconds === data.duration) {
     localStorage.removeItem(TIME_KEY);
     return;
