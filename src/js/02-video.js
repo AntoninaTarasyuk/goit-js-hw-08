@@ -1,26 +1,30 @@
-import Player from '@vimeo/player';
 import throttle from 'lodash.throttle';
-
-const STORAGE_KEY = 'videoplayer-current-time';
+import Player from '@vimeo/player';
 
 const iframe = document.querySelector('iframe#vimeo-player');
 const player = new Player(iframe);
 
-const timeFunction = function(data) {
-  localStorage.setItem(STORAGE_KEY, data.seconds);
-  console.log(data.seconds);
+const TIME_KEY = 'videoplayer-current-time';
+
+function updateCurrentTime({seconds}) {
+  localStorage.setItem(TIME_KEY, seconds);
+  console.log(seconds);
 };
 
-player.on('timeupdate', throttle(timeFunction, 1000));
+function setCurrentTime() {
+  const currentTime = localStorage.getItem(TIME_KEY);
+  if (currentTime !== null) { player.setCurrentTime(currentTime) };
+};
 
-function onPageReload() {
-  const savedMessage = localStorage.getItem(STORAGE_KEY);
-  if (savedMessage) {
-    player.setCurrentTime(savedMessage)
-      .then(function (seconds) { })
-      .catch(function (error) {
-        switch (error.name) { case 'Error': break; default: break; }
-      });
-  }
-}
-onPageReload();
+player.on('timeupdate', throttle(updateCurrentTime, 1000));
+setCurrentTime();
+
+
+// const currentTime = localStorage.getItem(TIME_KEY);
+// currentTime ? player.setCurrentTime(currentTime) : null;
+
+//  player.setCurrentTime(currentTime)
+//    .then(function (seconds) { })
+//    .catch(function (error) {
+//      switch (error.name) { case 'Error': break; default: break; }
+//    });
