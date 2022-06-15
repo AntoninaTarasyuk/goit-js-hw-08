@@ -24,9 +24,6 @@ player.on('timeupdate', throttle(updatePlaybackTime, 1000));
 onPageReload();
 
 
-// const currentTime = localStorage.getItem(TIME_KEY);
-// currentTime ? player.setCurrentTime(currentTime) : null;
-
 //  player.setCurrentTime(localStorage.getItem(TIME_KEY))
 //    .then(function (seconds) { })
 //    .catch(function (error) {

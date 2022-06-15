@@ -17,7 +17,7 @@ function onFormInput() {
 function onFormSubmit(event) {
   event.preventDefault();
 
-  if (emaiIinput.value.trim() == '' || textarea.value.trim() == '') {
+  if (emaiIinput.value.trim() === "" || textarea.value.trim() === "") {
     alert('Please fill in all input fields.');
     return;
   } else {
